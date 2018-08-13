@@ -7,6 +7,8 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/css/all.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Merienda:400,700" rel="stylesheet">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -16,28 +18,68 @@
     </environment>
 </head>
 <body>
-    <ul class="nav justify-content-end">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-            </li>
-        }
-    </ul>
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link active" asp-action="Index" asp-controller="Home">Home</a>
+    <div class="row" style="margin-top:10px;">
+        <div class="col">
+            <ul class="nav justify-content-start">
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#A1BEB4; font-size:1.5rem;" asp-controller="Account" asp-action="Profile">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#A1BEB4; font-size:1.5rem;" asp-controller="Account" asp-action="Profile">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#A1BEB4; font-size:1.5rem;" asp-controller="Account" asp-action="Profile">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <div align="center" style="justify-content:center; align-content:center; color:#043B40;">
+                <h1 style="font-family: 'Merienda', cursive; font-size:1.8rem;">Krustan</h1>
+            </div>
+        </div>
+        <div class="col">
+            <ul class="nav justify-content-end">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#276A73; font-size:1.5rem;" asp-controller="Account" asp-action="Profile">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#276A73; font-size:1.5rem;" asp-controller="Account" asp-action="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#276A73; font-size:1.5rem;" asp-controller="Account" asp-action="Login">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <ul class="nav justify-content-center" style="padding:7px;background-color:#043B40">
+        <li class="nav-item" 
+            style="color:white; padding:3px; border:solid white 2px; margin-left:4px;margin-right:4px;">
+            <a class="nav-link active" style="color:white;" asp-action="Index" asp-controller="Home">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-action="Index" asp-controller="Dogs">Buscar perros</a>
+        <li class="nav-item" style="color:white; padding:3px; border:solid white 2px; margin-left:4px;margin-right:4px;">
+            <a class="nav-link" style="color:white;" asp-action="Index" asp-controller="Dogs">Buscar perros</a>
         </li>
     </ul>
+    <br />
     <div class="container">
         @RenderBody()
     </div>

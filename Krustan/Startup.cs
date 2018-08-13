@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Krustan.Services;
 using Krustan.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Krustan
 {
@@ -48,14 +49,18 @@ namespace Krustan
 
                 // Configure the Auth0 Client ID and Client Secret
                 options.ClientId = Configuration["Auth0:ClientId"];
-                        options.ClientSecret = Configuration["Auth0:ClientSecret"];
+                options.ClientSecret = Configuration["Auth0:ClientSecret"];
 
                 // Set response type to code
                 options.ResponseType = "code";
 
                 // Configure the scope
                 options.Scope.Clear();
-                        options.Scope.Add("openid");
+
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("emailaddress");
+                options.Scope.Add("gender");
 
                 // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0
                 // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard
@@ -63,6 +68,13 @@ namespace Krustan
 
                 // Configure the Claims Issuer to be Auth0
                 options.ClaimsIssuer = "Auth0";
+
+                // Set the correct name claim type
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "email",
+                    SaveSigninToken = true,
+                };
 
                 options.Events = new OpenIdConnectEvents
                 {

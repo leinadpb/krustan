@@ -11,8 +11,13 @@ namespace Krustan.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index([FromQuery]string code)
         {
+            if(code != null)
+            {
+                ViewBag.Code = code;
+            }
             return View();
         }
 

@@ -7,6 +7,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/js/fontawesome.js",
+    "inputFiles": [
+      "node_modules/fontawesome/index.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.css",
     "inputFiles": [
       "node_modules/bootstrap/dist/css/bootstrap.css"
