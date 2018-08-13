@@ -1,0 +1,74 @@
+﻿@model Krustan.Models.Dog
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Error != null)
+{
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Error:</strong> @ViewBag.Error
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+<div align="center" style="padding:1.5em;margin-top:10px;">
+    <h2>Add a dog</h2>
+</div>
+<br />
+<div align="center">
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <a asp-action="Index" style="color:#000000;font-size:5.4rem;">
+                    <i class="fas fa-long-arrow-alt-left"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="Create" method="post" asp-controller="Dogs">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Weight" class="control-label"></label>
+                    <input asp-for="Weight" type="number" step=".01" class="form-control" />
+                    <span asp-validation-for="Weight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Height" class="control-label"></label>
+                    <input asp-for="Height" type="number" step=".01" class="form-control" />
+                    <span asp-validation-for="Height" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" type="number" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sex" class="control-label"></label>
+                    <select id="Sex" name="Sex" class="form-control">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <span asp-validation-for="Sex" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-secondary btn-block" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+

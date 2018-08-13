@@ -21,9 +21,31 @@ namespace Krustan.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index([FromQuery] string info)
         {
+            if(info != null)
+            {
+                ViewBag.Info = info;
+            }
             return View(service.GetAll().Result);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Dog dog)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", new { info = "Dog was added sucessfully!" });
+            }
+            ViewBag.Error = "Please, complete the form below to successfully add a dog.";
+            return View();
         }
     }
 }

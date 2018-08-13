@@ -4,46 +4,83 @@
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Profile</h2>
-
-<div>
-    <h4>UserProfileViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UniqueId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UniqueId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nickname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nickname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfileImage)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProfileImage)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col" align="center">
+        <img asp-append-version="true" src="@Model.ProfileImage" class="img-thumbnail"
+             alt="@Model.Name"
+             style="border-radius:50%;width:250px;margin-top:25px;">
+        <div style="margin:11px;">
+            <h4 style="font-family: 'Merienda', cursive; font-size:1.4rem;">@Model.Name</h4>
+            <h4 style="font-size:1.1rem;font-style:italic;margin:10px;">@Model.Email</h4>
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<br />
+<div align="center">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <div style="margin:1.3em; padding:0.8em;">
+                    <h1 style="font-family: 'Merienda', cursive; font-size:1.4rem;font-weight:600">My Dogs (1)</h1>
+                </div>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Age
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example</td>
+                            <td>example</td>
+                            <td>
+                                <button type="button" class="btn btn-dark btn-sm">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <div style="margin:1.3em; padding:0.8em;">
+                    <h1 style="font-family: 'Merienda', cursive; font-size:1.4rem;font-weight:600">Saved Dogs (1)</h1>
+                </div>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Age
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example</td>
+                            <td>example</td>
+                            <td>
+                                <button type="button" class="btn btn-dark btn-sm">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

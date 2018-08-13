@@ -4,7 +4,15 @@
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@if (ViewBag.Info != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success:</strong> @ViewBag.Info
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
 <h2>View</h2>
 <div>
     Username: @User.Identity.Name

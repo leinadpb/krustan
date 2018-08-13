@@ -1,3 +1,9 @@
 .mainMenu {
   padding: 7px;
   background-color: #043B40; }
+  .mainMenu li {
+    color: white;
+    padding: 3px;
+    border: solid white 2px;
+    margin-left: 4px;
+    margin-right: 4px; }

@@ -121,6 +121,8 @@ namespace Krustan
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithRedirects("~/pages/404.html");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
