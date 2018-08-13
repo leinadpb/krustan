@@ -13,11 +13,24 @@
         </button>
     </div>
 }
-<h2>View</h2>
-<div>
-    Username: @User.Identity.Name
-</div>
-
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form asp-action="Search" asp-controller="Dogs" method="get">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search..."
+                           style="padding:5px;"
+                           name="byName">
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 <p>
     <a asp-action="Create">Create New</a>
 </p>

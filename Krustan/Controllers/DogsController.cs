@@ -21,9 +21,15 @@ namespace Krustan.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index([FromQuery] string info)
+        public IActionResult Index([FromQuery] string info, [FromQuery] bool search, [FromQuery]string txtName)
         {
-            if(info != null)
+            if(search)
+            {
+                var dogs = service.GetDogsByName(txtName).Result;
+                ViewBag.Info = $"{dogs.ToList().Count} dogs found.";
+                return View(dogs);
+            }
+            if (info != null)
             {
                 ViewBag.Info = info;
             }
@@ -46,6 +52,17 @@ namespace Krustan.Controllers
             }
             ViewBag.Error = "Please, complete the form below to successfully add a dog.";
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Search([FromQuery]string byName)
+        {
+            if(byName != null)
+            {
+                //var _dogs = service.GetDogsByName(byName).Result;
+                return RedirectToAction("Index", new { search = true, txtName = byName });
+            }
+            return RedirectToAction("Index", new { search = false });
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Krustan.Services
 
         public Task<IEnumerable<Dog>> GetDogsByName(string name_part)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => dogs.Where(d => d.Name.ToLower().Contains(name_part.ToLower())));
         }
     }
 }
