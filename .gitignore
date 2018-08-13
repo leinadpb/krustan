@@ -1,0 +1,13 @@
+﻿Krustan/Properties/launchSettings.json
+
+# ignore appsettings.json
+Krustan/appsettings.json
+
+# ignore vs and git folders
+.vs/
+.git/
+Krustan/bin/
+Krustan/obj/
+
+# ignore node_modules
+Krustan/node_modules/
