@@ -63,8 +63,16 @@ namespace Krustan.Controllers
                 string current_email = User.Claims.FirstOrDefault(c => c.Type == @"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
                 if (!email.Contains('@') && !email.Contains('.'))
                 {
-                    name = email;
-                    email = current_email;
+                    if(current_email != null)
+                    {
+                        name = email;
+                        email = current_email;
+                    }
+                    else
+                    {
+                        name = email;
+                        email = nickname + "@gmail.com";
+                    }
                 }
                 var myDogs = DogService.GetDogsByUser(uniqueId).Result;
 
