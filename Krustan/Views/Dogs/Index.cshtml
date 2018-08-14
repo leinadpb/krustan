@@ -13,73 +13,46 @@
         </button>
     </div>
 }
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form asp-action="Search" asp-controller="Dogs" method="get">
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Search..."
-                           style="padding:5px;"
-                           name="byName">
-                    <span class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-2"></div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form asp-action="Search" asp-controller="Dogs" method="get">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search..."
+                        style="padding:5px;"
+                        name="byName">
+                <span class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Weight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Height)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Weight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Height)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="col-md-2"></div>
+</div>
+<br />
+<div style="display:flex;flex-flow:row wrap">
+    @foreach (var dog in Model)
+    {
+        <div class="card" style="width: 22rem;margin:7px;">
+            <img class="card-img-top" 
+                 style="align-items:center;justify-content:center;width:100%;" 
+                 src="@dog.DogPicture" alt="@dog.Name">
+            <div class="card-body">
+                <div align="center">
+                    <h3 class="card-title">@dog.Name | @dog.Age</h3>
+                    <p class="card-text">@dog.Description</p>
+                    <p>
+                        <span>Sex: @dog.Sex</span> |
+                        <span>Weight: @dog.Weight</span> |
+                        <span>Height: @dog.Height</span>
+                    </p>
+                    <p>
+                        <span>OwnerID: @dog.OwnerId</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

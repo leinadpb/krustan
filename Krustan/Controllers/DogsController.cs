@@ -6,6 +6,9 @@ using Krustan.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Krustan.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Krustan.Controllers
 {
@@ -37,21 +40,52 @@ namespace Krustan.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create([FromQuery] string Error)
         {
-
+            if(Error != null)
+            {
+                ViewBag.Error = Error;
+            }
+            ViewBag.UserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Dog dog)
+        public async Task<IActionResult> CreateAsync(
+            string Name, string Sex, float Weight, float Height, string Owner, IFormFile DogPicture,
+            string Description, int Age)
         {
-            if (ModelState.IsValid)
+            if (Name != null && Sex != null && Owner != null && DogPicture != null && Description != null)
             {
-                return RedirectToAction("Index", new { info = "Dog was added sucessfully!" });
+                Dog dog = new Dog() {
+                    Name = Name,
+                    Sex = Sex,
+                    Weight = Weight,
+                    Height = Height,
+                    DogPicture = DogPicture.FileName,
+                    Description = Description,
+                    Age = Age,
+                    OwnerId = Owner
+                };
+                // full path to file in temp location
+                var filePath = Path.GetTempFileName();
+                var stream = new FileStream(filePath, FileMode.Create);
+                await DogPicture.CopyToAsync(stream);
+
+                stream.Close();
+                var result = await service.UploadPictureToS3Bucket(filePath, Path.GetExtension(DogPicture.FileName));
+                if(result != null)
+                {
+                    //Set AWS S3 url to DogPicture property
+                    dog.DogPicture = result;
+
+                    var addedDog = await service.AddDog(dog);
+                    if (addedDog != null)
+                        return RedirectToAction("Index", new { info = "Dog was added sucessfully!" });
+                }
             }
-            ViewBag.Error = "Please, complete the form below to successfully add a dog.";
-            return View();
+            string _error = "Please, complete the form below to successfully add a dog.";
+            return RedirectToAction("Create", new { Error = _error });
         }
 
         [HttpGet]

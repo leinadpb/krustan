@@ -20,5 +20,9 @@ namespace Krustan.Models
         public int Age { get; set; }
         [Required()]
         public string Sex { get; set; } //1-male  2-female
+        [Required]
+        public string DogPicture { get; set; }
+        [Required]
+        public string OwnerId { get; set; }
     }
 }
