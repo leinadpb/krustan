@@ -119,5 +119,10 @@ namespace Krustan.Services
         {
             return value.ToString("yyyyMMddHHmmssffff");
         }
+
+        public Task<IEnumerable<Dog>> GetDogsByUser(string userid)
+        {
+            return Task.Run( () => dogs.Where(d => d.OwnerId.Equals(userid)) );
+        }
     }
 }

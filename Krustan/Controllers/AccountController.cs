@@ -10,16 +10,19 @@ using RestSharp;
 using Microsoft.Extensions.Configuration;
 using Krustan.ViewModels;
 using System.Security.Claims;
+using Krustan.Models;
 
 namespace Krustan.Controllers
 {
     public class AccountController : Controller
     {
         public IConfiguration Configuration { get; }
+        private readonly IDogService DogService;
 
-        public AccountController(IConfiguration config)
+        public AccountController(IConfiguration config, IDogService _dogService)
         {
             this.Configuration = config;
+            this.DogService = _dogService;
         }
 
         public async Task Login(string returnUrl = "/")
@@ -39,34 +42,6 @@ namespace Krustan.Controllers
                 
             });
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-
-        [Authorize]
-        public IActionResult Userinfo()
-        {
-            //Get authorization code
-            String auth_code = @User.Claims.ToArray()[0].ToString();
-            int c = 0;
-            foreach(char ch in auth_code)
-            {
-                if (ch.Equals('|'))
-                {
-                    break;
-                }
-                c++;
-            }
-            string code = auth_code.Substring(c+1);
-
-            var client = new RestClient($"https://{Configuration["Auth0:Domain"]}/oauth/token");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", "{\"grant_type\":\"authorization_code\",\"client_id\": \"" + Configuration["Auth0:ClientId"] + "\",\"client_secret\": \"" + Configuration["Auth0:ClientSecret"] + "\",\"code\": \"" + code + "\",\"redirect_uri\": \"https://localhost:44378/\"}", ParameterType.RequestBody);
-
-            IRestResponse response = client.Execute(request);
-
-            ViewBag.Response = response.Content;
-
-            return View();
         }
 
         [Authorize]
@@ -91,14 +66,16 @@ namespace Krustan.Controllers
                 email = current_email;
             }
 
-            string asd = "asd";
+            var myDogs = DogService.GetDogsByUser(uniqueId).Result;
 
             return View(new UserProfileViewModel {
                 UniqueId = uniqueId,
                 Email = email,
                 ProfileImage = profileImg,
                 Nickname = nickname,
-                Name = name
+                Name = name,
+                MyDogs = myDogs,
+                SavedDogs = null
             });
         }
     }

@@ -22,6 +22,24 @@
     }
   },
   {
+    "outputFileName": "wwwroot/js/bootstrap.js",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/js/bootstrap.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/popper.js",
+    "inputFiles": [
+      "node_modules/popper.js/dist/popper.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js"

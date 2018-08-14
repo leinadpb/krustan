@@ -17,70 +17,78 @@
 </div>
 <br />
 <div align="center">
-    <div class="row">
-        <div class="col-md-6">
-            <div>
-                <div style="margin:1.3em; padding:0.8em;">
-                    <h1 style="font-family: 'Merienda', cursive; font-size:1.4rem;font-weight:600">My Dogs (1)</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Dogs (@Model.MyDogs.Count())</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Saved Dogs (0)</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            @if (Model.MyDogs != null)
+            {
+                <div style="display:flex;flex-flow:row wrap">
+                    @foreach (var dog in Model.MyDogs)
+                    {
+                        <div class="card" style="width: 22rem;margin:7px;">
+                            <img class="card-img-top"
+                                 style="align-items:center;justify-content:center;width:100%;"
+                                 src="@dog.DogPicture" alt="@dog.Name">
+                            <div class="card-body">
+                                <div align="center">
+                                    <h3 class="card-title">@dog.Name | @dog.Age</h3>
+                                    <p class="card-text">@dog.Description</p>
+                                    <p>
+                                        <span>Sex: @dog.Sex</span> |
+                                        <span>Weight: @dog.Weight</span> |
+                                        <span>Height: @dog.Height</span>
+                                    </p>
+                                    <p>
+                                        <span>OwnerID: @dog.OwnerId</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Age
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>example</td>
-                            <td>example</td>
-                            <td>
-                                <button type="button" class="btn btn-dark btn-sm">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+            }
+
         </div>
-        <div class="col-md-6">
-            <div>
-                <div style="margin:1.3em; padding:0.8em;">
-                    <h1 style="font-family: 'Merienda', cursive; font-size:1.4rem;font-weight:600">Saved Dogs (1)</h1>
-                </div>
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Age
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>example</td>
-                            <td>example</td>
-                            <td>
-                                <button type="button" class="btn btn-dark btn-sm">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+            <div style="display:flex;flex-flow:row wrap">
+                @if (Model.SavedDogs != null)
+                {
+                    @foreach (var dog in Model.SavedDogs)
+                    {
+                        <div class="card" style="width: 22rem;margin:7px;">
+                            <img class="card-img-top"
+                                 style="align-items:center;justify-content:center;width:100%;"
+                                 src="@dog.DogPicture" alt="@dog.Name">
+                            <div class="card-body">
+                                <div align="center">
+                                    <h3 class="card-title">@dog.Name | @dog.Age</h3>
+                                    <p class="card-text">@dog.Description</p>
+                                    <p>
+                                        <span>Sex: @dog.Sex</span> |
+                                        <span>Weight: @dog.Weight</span> |
+                                        <span>Height: @dog.Height</span>
+                                    </p>
+                                    <p>
+                                        <span>OwnerID: @dog.OwnerId</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
             </div>
+
         </div>
     </div>
 </div>

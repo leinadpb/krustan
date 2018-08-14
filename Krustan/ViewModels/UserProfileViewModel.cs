@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Krustan.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,9 @@ namespace Krustan.ViewModels
         public String ProfileImage { get; set; }
 
         public String Name { get; set; }
+
+        public IEnumerable<Dog> MyDogs { get; set; }
+
+        public IEnumerable<Dog> SavedDogs { get; set; }
     }
 }
