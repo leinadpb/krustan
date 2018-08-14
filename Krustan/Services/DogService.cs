@@ -11,6 +11,7 @@ using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Amazon.Runtime;
+using Microsoft.EntityFrameworkCore;
 
 namespace Krustan.Services
 {
@@ -18,10 +19,12 @@ namespace Krustan.Services
     {
         private static List<Dog> dogs = new List<Dog>();
         private IAmazonS3 client;
+        private readonly KrustanDbContext _context;
         private IConfiguration Configuration;
 
-        public DogService(IConfiguration cfg)
+        public DogService(IConfiguration cfg, KrustanDbContext ctx)
         {
+            this._context = ctx;
             Configuration = cfg;
 
             var credentials = new BasicAWSCredentials(Configuration["s3:AccessKey"].Trim(), Configuration["s3:SecretAccessKey"].Trim());
@@ -65,13 +68,34 @@ namespace Krustan.Services
             }
         }
 
-        public Task<Dog> AddDog(Dog dog) => Task.Run(() =>
+        public Task<Dog> AddDog(Dog dog, string uniqueUserId)
         {
-            dogs.Add(dog);
-            return dog;
-        });
+            return Task.Run(() =>
+            {
+                AppUser user = _context.AppUsers.Include(u => u.Dogs).First(u => u.UniqueId.Equals(uniqueUserId));
+                dog.OwnerId = uniqueUserId;
 
-        public Task<IEnumerable<Dog>> GetAll() => Task.Run(() => dogs.AsEnumerable());
+                user.Dogs.Add(dog);
+
+                _context.SaveChanges();
+
+                return dog;
+            });
+        }
+
+        public Task<IEnumerable<Dog>> GetAll()
+        {
+            return Task.Run(() => {
+                var mydogs = _context.Dogs.ToList();
+
+                foreach(var d in dogs)
+                {
+                    mydogs.Add(d);
+                }
+
+                return mydogs.AsEnumerable();
+            });
+        }
 
         public Task<IEnumerable<Dog>> GetDogsByAge(int age)
         {
@@ -85,7 +109,19 @@ namespace Krustan.Services
 
         public Task<IEnumerable<Dog>> GetDogsByName(string name_part)
         {
-            return Task.Run(() => dogs.Where(d => d.Name.ToLower().Contains(name_part.ToLower())));
+            return Task.Run(() => {
+
+                var mydogs = _context.Dogs.Where(d => d.Name.ToLower().Contains(name_part.ToLower())).ToList();
+
+                var apidogs = dogs.Where(d => d.Name.ToLower().Contains(name_part.ToLower()));
+
+                foreach (var d in apidogs)
+                {
+                    mydogs.Add(d);
+                }
+
+                return mydogs.AsEnumerable();
+            });
         }
 
         public Task<string> UploadPictureToS3Bucket(string pathToFile, string extension)

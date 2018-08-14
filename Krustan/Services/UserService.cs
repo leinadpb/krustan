@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Krustan.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Krustan.Services
 {
@@ -43,7 +44,7 @@ namespace Krustan.Services
 
         public Task<AppUser> GetUserByUniqueId(string uniqueId)
         {
-            return Task.Run(() => _context.AppUsers.Where(u => u.UniqueId.Equals(uniqueId)).FirstOrDefault() );
+            return Task.Run(() => _context.AppUsers.Include(u => u.Dogs).Where(u => u.UniqueId.Equals(uniqueId)).FirstOrDefault() );
         }
 
         public Task<bool> SetBirthday(AppUser user, DateTime birthdate)

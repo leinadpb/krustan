@@ -12,7 +12,7 @@ namespace Krustan.Models
         Task<IEnumerable<Dog>> GetDogsByAge(int age);
         Task<IEnumerable<Dog>> GetDogsByName(string name_part);
         Task<IEnumerable<Dog>> GetDogsByBreed(string breed);
-        Task<Dog> AddDog(Dog dog);
+        Task<Dog> AddDog(Dog dog, string uniqueUserId);
         Task<String> UploadPictureToS3Bucket(string pathToFile, string extension); // Return path to picture in S3 Bucket
         Task<IEnumerable<Dog>> GetDogsByUser(string userid);
     }

@@ -87,13 +87,18 @@ namespace Krustan.Controllers
                     ViewBag.Info = Info;
                     ViewBag.Success = Success;
                 }
+                List<Dog> thisUserDogs = new List<Dog>();
+                if(user.Dogs != null)
+                {
+                    thisUserDogs = user.Dogs;
+                }
                 return View(new UserProfileViewModel {
                     UniqueId = user.UniqueId,
                     Email = user.Email,
                     ProfileImage = user.ProfileImage,
                     Nickname = user.Nickname,
                     Name = user.Name,
-                    MyDogs = new List<Dog>(),
+                    MyDogs = thisUserDogs,
                     SavedDogs = new List<Dog>()
                 });
             }

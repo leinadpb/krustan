@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Krustan.Models
 {
-    public class KrustanDbContext : IdentityDbContext
+    public class KrustanDbContext : DbContext
     {
         public KrustanDbContext(DbContextOptions<KrustanDbContext> options) : base(options)
         {
@@ -15,6 +15,12 @@ namespace Krustan.Models
 
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Dog> Dogs { get; set; }
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           
+        }
+
+
     }
 }

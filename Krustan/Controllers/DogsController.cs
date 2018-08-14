@@ -79,7 +79,7 @@ namespace Krustan.Controllers
                     //Set AWS S3 url to DogPicture property
                     dog.DogPicture = result;
 
-                    var addedDog = await service.AddDog(dog);
+                    var addedDog = await service.AddDog(dog, Owner);
                     if (addedDog != null)
                         return RedirectToAction("Index", new { info = "Dog was added sucessfully!" });
                 }

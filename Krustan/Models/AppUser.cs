@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,8 +19,8 @@ namespace Krustan.Models
         public DateTime Birthdate { get; set; }
         public string Nickname { get; set; }
         public string ProfileImage { get; set; }
-        public IEnumerable<Dog> MyDogs { get; set; }
-        public IEnumerable<Dog> SavedDogs { get; set; }
+
+        public List<Dog> Dogs { get; set; }
 
     }
 }
