@@ -8,6 +8,7 @@ namespace Krustan.Models
 {
     public class Dog
     {
+        public int DogId { get; set; }
         [Required(ErrorMessage = "Please, provide a name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please, provide the weight.")]

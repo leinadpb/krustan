@@ -4,6 +4,55 @@
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (ViewBag.UserNotFound != null)
+{
+    if (ViewBag.UserNotFound)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Warning:</strong> Please complete your registration.
+            <form method="get" asp-action="CompleteRegistration" asp-controller="Account">
+                <input type="hidden" name="uniqueId" value="@Model.UniqueId" />
+                <input type="hidden" name="email" value="@Model.Email" />
+                <input type="hidden" name="name" value="@Model.Name" />
+                <input type="hidden" name="nickname" value="@Model.Nickname" />
+                <input type="hidden" name="profilePicture" value="@Model.ProfileImage" />
+                <button type="submit" class="btn btn-dark btn-sm">
+                    Complete now
+                </button>
+            </form>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+@if (ViewBag.Success != null)
+{
+    if (ViewBag.Success)
+    {
+        if (ViewBag.Info != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> @ViewBag.Info
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+    else
+    {
+        if (ViewBag.Info != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> @ViewBag.Info
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+}
 <div class="row">
     <div class="col" align="center">
         <img asp-append-version="true" src="@Model.ProfileImage" class="img-thumbnail"

@@ -1,0 +1,86 @@
+﻿@model Krustan.Models.AppUser
+
+@{
+    ViewData["Title"] = "CompleteRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Success != null)
+{
+    if (ViewBag.Success)
+    {
+        if (ViewBag.Info != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> @ViewBag.Info
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+    else
+    {
+        if (ViewBag.Info != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> @ViewBag.Info
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+}
+<h2>Complete Registration</h2>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form asp-action="CompleteRegistration" asp-controller="Account" method="post">
+            <div class="row">
+                <div class="col" align="center">
+                    <img asp-append-version="true" src="@Model.ProfileImage" class="img-thumbnail"
+                         alt="@Model.Name"
+                         style="border-radius:50%;width:200px;margin-top:15px;">
+                </div>
+            </div>
+            <input type="hidden" name="ProfileImage" value="@Model.ProfileImage" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AppUserId" />
+            <div class="form-group">
+                <label asp-for="UniqueId" class="control-label"></label>
+                <input readonly asp-for="UniqueId" class="form-control" />
+                <span asp-validation-for="UniqueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input readonly asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthdate" class="control-label"></label>
+                <input asp-for="Birthdate" class="form-control" required />
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nickname" class="control-label"></label>
+                <input asp-for="Nickname" class="form-control" />
+                <span asp-validation-for="Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Complete Profile" class="btn btn-secondary btn-block" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
